@@ -5,3 +5,5 @@ steps:
     args: ['push', 'northamerica-northeast2-docker.pkg.dev/$PROJECT_ID/gke-file-gateway/gke-file-gateway:latest']
 images:
   - 'northamerica-northeast2-docker.pkg.dev/$PROJECT_ID/gke-file-gateway/gke-file-gateway:latest'
+options:
+  logging: CLOUD_LOGGING_ONLY
