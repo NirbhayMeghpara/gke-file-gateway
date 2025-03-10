@@ -1,11 +1,8 @@
 import fs, { promises as fsPromises } from "fs";
 import Papa from "papaparse";
 
-const MOUNTED_DISK_PATH = "/mnt/disk";
-
-export const checkFileExists = async (fileName: string): Promise<boolean> => {
+export const checkFileExists = async (filePath: string): Promise<boolean> => {
   try {
-    const filePath = `${MOUNTED_DISK_PATH}/${fileName}`;
     await fsPromises.access(filePath);
     return true;
   } catch (err) {
@@ -13,9 +10,8 @@ export const checkFileExists = async (fileName: string): Promise<boolean> => {
   }
 };
 
-export const checkCSVFormat = (fileName: string): Promise<boolean> => {
+export const checkCSVFormat = (filePath: string): Promise<boolean> => {
   return new Promise((resolve) => {
-    const filePath = `${MOUNTED_DISK_PATH}/${fileName}`
     const fileStream = fs.createReadStream(filePath, "utf8")
 
     Papa.parse(fileStream, {
@@ -31,6 +27,7 @@ export const checkCSVFormat = (fileName: string): Promise<boolean> => {
         // Check headers
         const headers = Object.keys(results.data[0] || {})
         if (headers.length !== 2 || !headers.includes("product") || !headers.includes("amount")) {
+          console.log("Invalid headers:", headers)
           resolve(false)
           return
         }
@@ -39,6 +36,8 @@ export const checkCSVFormat = (fileName: string): Promise<boolean> => {
         const invalidRow = results.data.some((row: any) => {
           return !row.product || !row.amount || isNaN(Number(row.amount))
         })
+
+        console.log("Invalid row:", invalidRow)
 
         resolve(!invalidRow)
       },
