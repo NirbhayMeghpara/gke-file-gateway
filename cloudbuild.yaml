@@ -1,9 +1,9 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'northamerica-northeast2-docker.pkg.dev/$PROJECT_ID/gke-file-gateway/gke-file-gateway:latest', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/gke-file-gateway/gke-file-gateway:latest', '.']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'northamerica-northeast2-docker.pkg.dev/$PROJECT_ID/gke-file-gateway/gke-file-gateway:latest']
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/gke-file-gateway/gke-file-gateway:latest']
 images:
-  - 'northamerica-northeast2-docker.pkg.dev/$PROJECT_ID/gke-file-gateway/gke-file-gateway:latest'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/gke-file-gateway/gke-file-gateway:latest'
 options:
   logging: CLOUD_LOGGING_ONLY
