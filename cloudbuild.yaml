@@ -15,13 +15,6 @@ steps:
     - 'us-central1'
     - '--project'
     - '$PROJECT_ID'
-
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - |
-      sed -i "s/\$PROJECT_ID/$PROJECT_ID/g" k8s/deployment.yaml
   
   - name: 'gcr.io/cloud-builders/kubectl'
     env:
