@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: file-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: file-gateway
+  template:
+    metadata:
+      labels:
+        app: file-gateway
+    spec:
+      containers:
+      - name: file-gateway
+        image: us-central1-docker.pkg.dev/$PROJECT_ID/gke-file-gateway/gke-file-gateway:latest
+        ports:
+        - containerPort: 6000
+        volumeMounts:
+        - name: file-storage-volume
+          mountPath: /nirbhay_PV_dir
+        env:
+        - name: PRODUCT_CALCULATOR_URL
+          value: "http://product-calculator-service:3000"
+      volumes:
+      - name: file-storage-volume
+        persistentVolumeClaim:
+          claimName: file-storage-pvc

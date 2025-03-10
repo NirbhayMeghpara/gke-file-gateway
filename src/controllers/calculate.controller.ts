@@ -4,7 +4,7 @@ import { checkCSVFormat, checkFileExists } from "../utils/validation.util"
 import axios from "axios"
 
 const STORAGE_DIR = "/nirbhay_PV_dir"
-const SUM_SERVICE_URL = process.env.SUM_SERVICE_URL || "http://gke-product-calculator:3000"
+const PRODUCT_CALCULATOR_URL = process.env.PRODUCT_CALCULATOR_URL || "http://product-calculator-service:3000"
 
 // Handler for /store-file
 export const handleFileStorage = async (req: any, res: any) => {
@@ -75,7 +75,7 @@ export const handleCalculation = async (req: any, res: any) => {
     }
 
     try {
-      const sumResponse = await axios.post(`${SUM_SERVICE_URL}/calculate-sum`, {
+      const sumResponse = await axios.post(`${PRODUCT_CALCULATOR_URL}/calculate-sum`, {
         file,
         product
       })
