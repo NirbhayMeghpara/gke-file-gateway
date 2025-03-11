@@ -1,6 +1,6 @@
 import express from 'express'
-import bodyParser from 'body-parser';
-import calculateRouter from './routes/calculate.route';
+import bodyParser from 'body-parser'
+import calculateRouter from './routes/calculate.route'
 
 const app = express();
 const PORT = process.env.PORT || 6000;
