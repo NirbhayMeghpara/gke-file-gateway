@@ -8,4 +8,4 @@ const PORT = process.env.PORT || 6000;
 app.use(bodyParser.json());
 app.use(calculateRouter);
 
-app.listen(PORT, () => console.log(`gke-file-gateway listening on port ${PORT}!!`))
+app.listen(PORT, () => console.log(`gke-file-gateway listening on port ${PORT}!`))
