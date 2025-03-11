@@ -15,6 +15,7 @@ spec:
       containers:
       - name: file-gateway
         image: us-central1-docker.pkg.dev/csci5409-453115/gke-file-gateway/gke-file-gateway:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 6000
         volumeMounts:
