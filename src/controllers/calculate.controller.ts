@@ -12,7 +12,7 @@ export const handleFileStorage = async (req: any, res: any) => {
     const { file, data } = req.body
 
     // Validate input
-    if (!file) {
+    if (!file || !data) {
       return res.status(400).json({
         file: null,
         error: "Invalid JSON input.",
@@ -21,9 +21,13 @@ export const handleFileStorage = async (req: any, res: any) => {
 
     const filePath = path.join(STORAGE_DIR, file)
 
-    // Write the file to persistent volume
+    const cleanedData = data
+      .split("\n")
+      .map((line) => line.split(",").map((item) => item.trim()).join(","))
+      .join("\n")
+
     try {
-      await fs.writeFile(filePath, data, "utf8")
+      await fs.writeFile(filePath, cleanedData, "utf8")
       return res.status(200).json({
         file,
         message: "Success.",
