@@ -24,8 +24,8 @@ export const checkCSVFormat = (filePath: string): Promise<boolean> => {
           return
         }
 
-        // Check headers
-        const headers = Object.keys(results.data[0] || {})
+        const headers = Object.keys(results.data[0] || {}).map((h) => h.trim())
+
         if (headers.length !== 2 || !headers.includes("product") || !headers.includes("amount")) {
           resolve(false)
           return
@@ -33,7 +33,7 @@ export const checkCSVFormat = (filePath: string): Promise<boolean> => {
 
         // Check each row has both product and amount and amount is a number
         const invalidRow = results.data.some((row: any) => {
-          return !row.product || !row.amount || isNaN(Number(row.amount))
+          return !row.product || !row.amount || isNaN(Number(row.amount.trim()))
         })
 
         resolve(!invalidRow)
@@ -41,7 +41,7 @@ export const checkCSVFormat = (filePath: string): Promise<boolean> => {
       error: () => {
         resolve(false)
       },
-    })
+    })    
   })
 }
 
